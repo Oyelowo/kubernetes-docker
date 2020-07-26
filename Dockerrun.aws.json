@@ -1,0 +1,31 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "oyelowo/multi-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "server",
+      "image": "oyelowo/multi-server",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "oyelowo/multi-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "oyelowo/multi-nginx",
+      "hostname": "nginx",
+      "essential": true,
+      "portMappings": [{ "hostPort": 80, "containerPort": 80 }],
+      "links": ["client", "server"]
+    }
+  ]
+}
