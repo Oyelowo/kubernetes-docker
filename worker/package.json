@@ -1,0 +1,24 @@
+{
+  "name": "dockerised-app-complex-architecture",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "tsc && node dist/index.js",
+    "dev": "tsnd --respawn --transpile-only index.ts",
+    "dev2": "ts-node-dev --respawn --transpile-only index.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "nodemon": "^2.0.4",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.26",
+    "@types/redis": "^2.8.25",
+    "typescript": "^3.9.7",
+    "ts-node-dev": "^1.0.0-pre.56"
+  }
+}

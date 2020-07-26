@@ -1,0 +1,69 @@
+version: "3"
+services:
+  postgres:
+    image: "postgres:latest"
+    environment:
+      - POSTGRES_PASSWORD=password
+    # env_file: ./server
+
+  redis:
+    container_name: oyelowo_redis
+    image: "redis:latest"
+
+  nginx: 
+    container_name: nginx
+    # I added this because some people were complaining about an error which I didn't encounter but this seems like a reasonable configuration since nginx is helping with the routing to api and client
+    depends_on:
+      - api
+      - client
+    
+    # routes entire traffic to our application, so, we want it always on
+    restart: always
+    build: 
+      dockerfile: Dockerfile.dev
+      context: ./nginx
+    ports: 
+      - "3050:80"  # Now, we will be accessing our application from port 3050. With this, we don't have to do the port mapping in client or api service
+
+
+  api:
+    depends_on:
+      - postgres
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./server
+    ports:
+      - 5001:5000
+    volumes:
+      - /app/node_modules # bookmark node_modules, so, we don't have to redirect it to our local folder everytime since we have already installed the packages in our container in the docker file
+      - ./server:/app # Anytime our application wants to access anything from the server, it is going to get redirected to present folder - `./server` which makes changes made locally to effect immediately without rebuilding the image
+
+    environment:
+      - REDIS_HOST=redis # we can specify the name of the service since it is specified up here in the docker compose file
+      - REDIS_PORT=6379
+      - PGUSER=postgres
+      - PGHOST=postgres
+      - PGDATABASE=postgres
+      - PGPASSWORD=password
+      - PGPORT=5432
+
+  client:
+    stdin_open: true # done as result of bug introduced into Create react app which causes react app to exit. (25/07/2020)
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./client
+    volumes:
+      - /app/node_modules
+      - ./client:/app
+      
+  worker:
+    build:
+      dockerfile: Dockerfile.dev
+      context: ./worker
+    volumes:
+      - /app/node_modules
+      - ./worker:/app
+
+    environment:
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
