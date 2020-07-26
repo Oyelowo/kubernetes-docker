@@ -8,7 +8,7 @@ before_install:
   # You can add more here if you can more projects you want to start
 
 script:
-  - docker run -e CI=true USERNAME/react-test npm test
+  - docker run -e CI=true oyelowo/react-test npm test
   # You can add more more commands to run here also
 
 after_success:
