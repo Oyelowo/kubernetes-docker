@@ -58,6 +58,7 @@ const Fib = () => {
 
   return (
     <div>
+      <h1>Fib Calculator</h1>
       <form onSubmit={handleSubmit}>
         <label>Enter your index:</label>
         <input
