@@ -33,7 +33,7 @@ deploy:
   app: mutli-docker
   env: MutliDocker-env
   bucket_name: elasticbeanstalk-us-east-1-150627575501
-  bucket_path: docker-mutli
+  bucket_path: docker-multi
   on: 
     branch: master
   access_key_id: $AWS_ACCESS_KEY
