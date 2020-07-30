@@ -15,6 +15,11 @@ spec:
       containers:
       - name: worker
         image: stephengrider/multi-worker
+        env:
+          - name: REDIS_HOST
+            value: redis-cluster-ip-service
+          - name: REDIS_PORT
+            value: "6379"
         resources:
           limits:
             memory: "128Mi"
