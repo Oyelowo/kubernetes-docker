@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name:  client-cluster-ip-service
+spec:
+  type:  ClusterIP
+  selector:
+    component: web
+  ports:
+  # No nodePort here because it is not accessible from the outside world
+  - name:  client-port
+    port:  3000
+    targetPort:  3000

@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: worker-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: worker
+  template:
+    metadata:
+      labels:
+        component: worker
+    spec:
+      containers:
+      - name: worker
+        image: stephengrider/multi-worker
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+# We don't need port here because no service that needs to connect to it and get information out of - name: 
+# . It only connects to redis pod. But nothing is going to make request to it in our application.
+# We only need port when we need request to go into a service 
