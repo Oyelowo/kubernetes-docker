@@ -11,7 +11,7 @@ docker push oyelowo/multi-client:$SHA
 docker push oyelowo/multi-server:$SHA
 docker push oyelowo/multi-worker:$SHA
 
-kubectl apply -f k8
+kubectl apply -f k8s
 kubectl set image deployments/server-deployment server=oyelowo/multi-server:$SHA
 kubectl set image deployments/client-deployment client=oyelowo/multi-client:$SHA
 kubectl set image deployments/worker-deployment worker=oyelowo/multi-worker:$SHA
