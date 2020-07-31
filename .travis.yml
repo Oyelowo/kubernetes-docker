@@ -18,7 +18,7 @@ before_deploy:
   - docker build -t oyelowo/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true USERNAME/docker-react npm run test
+  - docker run -e CI=true oyelowo/docker-react npm run test
 
 deploy:
   provider: script
